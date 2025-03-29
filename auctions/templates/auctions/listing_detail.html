@@ -1,0 +1,78 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h1>{{ listing.title }}</h1>
+
+    {% if not listing.is_active %}
+        <p style="color: red;"><strong>Auction Closed</strong></p>
+        {% if listing.winner_user %}
+            {% if user == listing.winner_user %}
+                <p style="color: green;"><strong>Congratulations! You won this auction!</strong></p>
+            {% else %}
+                <p>Winner: {{ listing.winner_user.username }}</p>
+            {% endif %}
+        {% else %}
+            <p>No bids were placed on this listing.</p>
+        {% endif %}
+    {% endif %}
+
+    {% if listing.image and listing.is_active %}
+        <p><img src="{{ listing.image }}" alt="{{ listing.title }}" style="max-width: 200px;"></p>
+    {% endif %}
+
+    {% if listing.is_active %}
+        <p>Posted by: {{ listing.creator.username }}</p>
+        <p>Category: {{ listing.product_category }}</p>
+        <p>Starting bid: <strong>${{ listing.starting_bid }}</strong></p>
+        <p>Highest bid: <strong>${{ highest_bid_amount }}</strong></p>
+        <p>{{ listing.description }}</p>
+    
+    <form method="post" action="{% url 'bid' listing.id %}">
+        {% csrf_token %}
+        <label for="bid_amount">Bid amount:</label>
+        <input type="number" id="bid_amount" name="bid_amount" min="{{ highest_bid_amount }}" placeholder="place bid">
+        <button type="submit">Place Bid</button>
+    </form>
+    {% endif %}
+
+    {% if user == listing.creator and listing.is_active %}
+        <form method="post" action="{% url 'close_auction' listing.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">Close Auction</button>
+        </form>
+    {% endif %}
+
+    {% if user != listing.creator %}
+        <form method="post" action="{% url 'add_watchlist' listing.id %}">
+            {% csrf_token %}
+            {% if user in listing.watchlist_users.all %}
+                <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+            {% endif %}
+        </form>
+    {% endif %}
+
+    <hr>
+
+    <h2>Comments</h2>
+
+    <ul>
+        {% for comment in listing.comments.all %}
+            <li>
+                <p>{{ comment.comment }}</p>
+                <p>Posted by: {{ comment.comment_user.username }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" action="{% url 'comment' listing.id %}">
+        {% csrf_token %}
+        <label for="comment">Add a comment:</label>
+        <br>
+        <textarea id="comment" name="comment"></textarea>
+        <button type="submit">Post Comment</button>
+    </form>
+
+{% endblock %}

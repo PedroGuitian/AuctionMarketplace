@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Sold Listings</h2>
+
+    {% if sold_listings %}
+        {% for listing in sold_listings %}
+            <div>
+                <h3>{{ listing.title }}</h3>
+                {% if listing.image %}
+                    <p><img src="{{ listing.image }}" alt="{{ listing.title }}" style="max-width: 200px;"></p>
+                {% endif %}
+                <p>Posted by: {{ listing.creator.username }}</p>
+                <p>Category: {{ listing.product_category }}</p>
+                <p>Starting bid: <strong>${{ listing.starting_bid }}</strong></p>
+                <p>Sold at: <strong>${{ listing.highest_bid_amount }}</strong></p>
+                <p>Winner: {{ listing.winner_user.username }}</p>
+                <p>{{ listing.description }}</p>
+                <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary">View Listing</a>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>You have no sold listings.</p>
+    {% endif %}
+
+{% endblock %}
