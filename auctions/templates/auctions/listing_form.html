@@ -1,32 +1,42 @@
 {% extends "auctions/layout.html" %}
 
 {% block title %}
-    Create Listing
+  Create Listing
 {% endblock %}
 
 {% block body %}
-    <h2>Create a new listing</h2>
-    <form action="{% url 'create_listing' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" required>
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" required></textarea>
-            <label for="starting_bid">Starting Bid</label>
-            <input type="number" class="form-control" id="starting_bid" name="starting_bid" step="0.01" min="0" max="99999999.99" required>
-            <label for="image_url">Image URL</label>
-            <input type="text" class="form-control" id="image_url" name="image_url">
-            <label for="category">Category</label>
-            <select class="form-control" id="category" name="category">
-                <option value="Fashion">Fashion</option>
-                <option value="Toys">Toys</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Home">Home</option>
-                <option value="Other">Other</option>
-            </select>
-            <button type="submit" class="btn btn-primary mt-2">Create Listing</button>
-        </div>
-    </form>
+  <div class="container listing-detail-card p-4 bg-white rounded shadow-sm">
+    <h2 class="mb-4 text-center">Create a New Listing</h2>
 
+    <form action="{% url 'create_listing' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group mb-3">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+      <div class="form-group mb-3">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+      </div>
+      <div class="form-group mb-3">
+        <label for="starting_bid">Starting Bid ($)</label>
+        <input type="number" class="form-control" id="starting_bid" name="starting_bid" step="0.01" min="0" max="99999999.99" required>
+      </div>
+      <div class="form-group mb-3">
+        <label for="image_url">Image URL</label>
+        <input type="text" class="form-control" id="image_url" name="image_url">
+      </div>
+      <div class="form-group mb-4">
+        <label for="category">Category</label>
+        <select class="form-control" id="category" name="category">
+          <option value="Fashion">Fashion</option>
+          <option value="Toys">Toys</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Home">Home</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success w-100">Create Listing</button>
+    </form>
+  </div>
 {% endblock %}
