@@ -2,51 +2,53 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>{% block title %}Auctions{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
-    </head>
-    <body>
-        <h1>Auctions</h1>
-        <div>
-            {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
-            {% else %}
-                Not signed in.
-            {% endif %}
-        </div>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
-            </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'sold_listings' %}">Recently Sold</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'listing_form' %}">Create New Listing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'categories' %}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
-            {% endif %}
-        </ul>
-        <hr>
-        {% block body %}
-        {% endblock %}
-    </body>
+  <head>
+    <title>{% block title %}Auctions{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+      <a class="navbar-brand" href="{% url 'index' %}">🛍️ Auctions</a>
+      <div class="ml-auto">
+        {% if user.is_authenticated %}
+          <span class="navbar-text mr-3">
+            Signed in as <strong>{{ user.username }}</strong>
+          </span>
+          <a class="btn btn-outline-success btn-sm mr-2" href="{% url 'listing_form' %}">+ New Listing</a>
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+          <a class="btn btn-outline-primary btn-sm mr-2" href="{% url 'login' %}">Log In</a>
+          <a class="btn btn-success btn-sm" href="{% url 'register' %}">Register</a>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div class="container">
+      {% if user.is_authenticated %}
+      <ul class="nav nav-pills justify-content-center mb-4">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sold_listings' %}">Recently Sold</a>
+          </li>
+        {% endif %}
+      </ul>
+
+      {% block body %}
+      {% endblock %}
+    </div>
+  </body>
 </html>
