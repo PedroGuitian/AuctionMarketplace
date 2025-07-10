@@ -32,8 +32,8 @@ A fully functional online auction marketplace built with Django. Inspired by mod
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/commerce.git
-   cd commerce
+   git clone https://github.com/PedroGuitian/AuctionMarketplace.git
+   cd AuctionMarketplace
 2. **Apply database migrations**
    ```bash
    python manage.py migrate
