@@ -1,27 +1,32 @@
-# Commerce
+# Auction Marketplace
 
-This is Project 2 of Harvard's CS50 Web Programming with Python and JavaScript (CS50W). It is a basic eBay-style e-commerce platform built using Django and Python.
+A fully functional online auction marketplace built with Django. Inspired by modern platforms like OfferUp, this app allows users to create listings, place bids, comment, and manage watchlists — all with a clean, modern, and responsive design.
+
+---
 
 ## Features
 
-- **User Registration & Login**: Users can create accounts, log in, and log out
-- **Auction Listings**: Authenticated users can create new auction listings with a title, description, starting bid, optional image URL, and category
-- **Bidding System**: Users can place bids; the highest bid is tracked
-- **Watchlist**: Users can add or remove listings from their watchlist and view it at any time
-- **Comments**: Users can comment on active listings
-- **Auction Closing**: The user who created a listing can close the auction, at which point the highest bidder wins
-- **Category View**: Users can browse listings by category
-- **Sold Listings**: Closed listings with a winner are displayed separately
+- User authentication (register, login, logout)
+- Create and manage auction listings
+- Upload images and set categories
+- Place bids on active listings
+- Automatic winner selection when closing auctions
+- Watchlist to track favorite items
+- Commenting system for each listing
+- Sold listings history for sellers
+- Clean, responsive, modern UI
 
-## Technologies Used
+---
 
-- Python 3
-- Django
-- SQLite
-- HTML
-- CSS
+## Tech Stack
 
-## Getting Started
+- **Backend**: Django
+- **Frontend**: HTML, CSS (custom, Bootstrap 4), JavaScript
+- **Database**: SQLite (default Django database)
+
+---
+
+## Setup & Run Locally
 
 ### Installation
 
